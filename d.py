@@ -12,7 +12,6 @@ import urllib.request
 import random
 import datetime
 
-TOKEN = 'Njc3NDQyMjMxMDAyNzI2NDQw.XldXdA.a3hCaX49kDb9anMdPjC82H_j3Sw'
 client = commands.Bot(command_prefix='.')
 
 
@@ -368,10 +367,10 @@ async def konachan_pictures():
 
         await asyncio.sleep(int(random.choice(timer)))
 
-
+access_token = os.environ["BOT_TOKEN"]
+client.run(access_token)
 client.loop.create_task(prescence())
 client.loop.create_task(neko())
 client.loop.create_task(anime_pictures())
 client.loop.create_task(yandere_pictures())
 client.loop.create_task(konachan_pictures())
-client.run(TOKEN)
