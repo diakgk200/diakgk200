@@ -1,11 +1,4 @@
 discord.py
-BeautifulSoup
+beautifulsoup4
 reqeusts
-os
-re
-time
-asyncio
-commands
 urllib3
-random
-datetime
