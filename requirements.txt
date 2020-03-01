@@ -1,8 +1,4 @@
 discord.py
-random.py
-datetime.py
-re.py
-time.py
 beautifulsoup4
 requests==2.23.0
 urllib3==1.25.8
