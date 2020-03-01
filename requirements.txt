@@ -1,0 +1,15 @@
+discord.py==1.3.1
+discord.py==0.16.12
+beautifulsoup4.py==4.8.2
+bs4.py==0.0.1
+reqeusts==2.23.0
+os
+re
+time
+asyncio
+commands
+urllib3==1.25.8
+urllib.request
+urllib
+random
+datetime
