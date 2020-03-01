@@ -1,6 +1,5 @@
 discord.py
-beautifulsoup4.py
-bs4.py
+BeautifulSoup
 reqeusts
 os
 re
