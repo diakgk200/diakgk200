@@ -37,7 +37,7 @@ async def prescence():
 
 @client.command()
 async def neko(ctx):
-    timer = [60, 40, 100]
+    timer = [600, 400, 1000]
 
     while True:
         embed = discord.Embed(
@@ -84,7 +84,7 @@ async def neko(ctx):
 
 @client.command()
 async def l_neko(ctx):
-    timer = [60, 40, 100]
+    timer = [600, 400, 1000]
 
     while True:
         embed = discord.Embed(
@@ -289,6 +289,89 @@ async def yandere_pictures(ctx):
         f.write(str(data[0]))
         f.close()
 
+        await asyncio.sleep(int(random.choice(timer)))
+        
+@client.command()        
+async def konachan_pictures(ctx):   
+    await client.wait_until_ready()
+    i_channel = client.get_channel(677909014545432586)
+    timer = [300, 600, 900]
+
+    while not client.is_closed():
+        print("===== konachan_pictures_start ====")
+        now = time.strftime('%y-%m-%d %H:%M:%S')
+        print("======= " + now + " ========")
+        print("==================================")
+        print("\n")
+        
+        f = open("./konachan_num.txt",'r')
+        lastnum = f.readline()
+        f.close()
+
+        l_url = []
+        l_d_url = []
+        l_num = []
+        
+        session = requests.session()
+        site = "http://konachan.net/post"
+        r = session.post(site)
+        html = r.text
+
+        soup = BeautifulSoup(html, 'html.parser')
+        img = soup.find_all('span',{'class':'plid'})
+        res = str(img).split(',')
+
+        # 실제 주소
+        p = re.compile(r'/post/show/\d+')
+        data = p.findall(str(res))
+        p = re.compile('\d+')
+        data = p.findall(str(data))
+
+
+
+        soup = BeautifulSoup(html, 'html.parser')
+        img = soup.find_all('a',{'class':'thumb'})
+        res = str(img).split(',')
+
+        # 이미지 다운 주소
+        p = re.compile(r'https://konachan.net/data/preview/\w+/\w+/\w+.png|https://konachan.net/data/preview/\w+/\w+/\w+.jpg')
+        data1 = p.findall(str(res))
+
+        print("First Number: " + str(data[0]))
+
+        # 이미지 번호 대조
+        for lists in range(len(data)):
+            print("Last Number: " + str(lastnum))
+            print("Image Number: " + str(data[lists]))
+            if(str(lastnum) == str(data[lists])):
+                print("============ konachan ============")
+                now = time.strftime('%y-%m-%d %H:%M:%S')
+                print("======= " + now + " ========")
+                print("==================================")
+                print("\n")
+                break
+            else:
+                print("\n")
+                
+            url = "http://konachan.net/post/show/" + data[lists]
+            d_url = str(data1[lists])
+
+            l_url.insert(0, url)
+            l_d_url.insert(0, d_url)
+            l_num.insert(0, data[lists])
+                        
+
+        # 출력
+        for l_list in range(len(l_url)):      
+            embed = discord.Embed(title="Anime-Pictures_konachan", description="This Picture number is " + str(l_num[l_list]) ,color=0xFF69B4, url = l_url[l_list])
+            embed.set_image(url=l_d_url[l_list])
+            await i_channel.send(content=None, embed=embed)
+            
+        # lastnum 기록
+        f = open("./konachan_num.txt",'w')
+        f.write(str(data[0]))
+        f.close()
+        
         await asyncio.sleep(int(random.choice(timer)))
 
 
